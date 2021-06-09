@@ -3,9 +3,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
    name: tekton-task-assignment-one-step
- annotations:
-   openshift.io/description: 'Assignment for tekton task'
-   openshift.io/display-name: tekton-task-assignment
 spec:
    steps:
     - image: quay.io/ibmgaragecloud/alpine-curl
