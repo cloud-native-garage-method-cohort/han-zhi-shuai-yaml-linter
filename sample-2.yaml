@@ -5,8 +5,6 @@ metadata:
    name: tekton-task-assignment-one-step
 spec:
    steps:
-    - image: quay.io/ibmgaragecloud/alpine-curl
-      name: one-step : 
       resources: {}
    script: |
         cd /workspace
