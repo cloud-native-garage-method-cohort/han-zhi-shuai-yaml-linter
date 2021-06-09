@@ -1,0 +1,18 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  labels:
+    tekton.dev/task: github-add-comment
+  name: github-add-comment-to-pr-98
+spec:
+  taskRef:
+    kind: Task
+    name: github-add-comment
+  params:
+    - name: REQUEST_URL
+      value: https://github.com/cloud-native-garage-method-cohort/apac-2-assignments/pull/98
+    - name: COMMENT_OR_FILE
+      value: |
+        This is a comment from tekton github-add-comment.
+        This issue is testing tekton catalog - curl taskrun.

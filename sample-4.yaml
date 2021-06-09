@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-line-markdown-assignment
+spec:
+  workspaces:
+    - name: shared-workspace
+  tasks:
+    - name: clone-repository
+     taskRef:
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+      params:
+        - name: url
+          value: https://github.com/upslopeio/lint-markdown-files
+        - name: revision
+          value: "main"
+        - name: subdirectory
+          value: ""
+        - name: deleteExisting
+          value: "true"
+    - name: execute-lint-markdown
+     taskRef:
+        name: markdown-lint
+      runAfter:
+        - clone-repository
+      workspaces:
+        - name: shared-workspace
+          workspace: shared-workspace
+      params:
+        - name: args
+          value: ["."]
+
+---
+apiVersion: tekton.dev/v1beta1
+ kind: PipelineRun
+metadata:
+  name: pipeline-line-markdown-assignment-run
+spec:
+  pipelineRef:
+    name: pipeline-line-markdown-assignment
+  workspaces:
+    - name: shared-workspace
+      persistentvolumeclaim:
+        claimName: han-zhi-shuai-pvc
